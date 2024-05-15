@@ -1,11 +1,11 @@
 from fastapi.testclient import TestClient
 import pytest
 from app.main import app
-from app.redis_client import RedisClient
-from app.mongodb_client import MongoDBClient
-from app.elasticsearch_client import ElasticsearchClient
-from app.timescale import Timescale
-from app.cassandra_client import CassandraClient
+from shared.redis_client import RedisClient
+from shared.mongodb_client import MongoDBClient
+from shared.elasticsearch_client import ElasticsearchClient
+from shared.timescale import Timescale
+from shared.cassandra_client import CassandraClient
 import time
 
 client = TestClient(app)
