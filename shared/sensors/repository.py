@@ -164,14 +164,6 @@ def delete_sensor(db: Session, sensor_id: int,mongoDB:MongoDBClient,redis:RedisC
 
     #Elimina la clau de redis
     redis.delete(sensor_id)
-
-    #Elimina el sensor de Elasticsearch
-    elastic.clearIndex('sensors',db_sensor.name)
-    
-    #Elimina el sensor de Timescale
-    query = "DELETE FROM sensor_data WHERE sensor_id == " + str(sensor_id)
-    timescale.execute(query)
-    timescale.execute("commit")
     return db_sensor
 def get_sensors_near(mongodb: MongoDBClient, latitude: float, longitude: float,radius:float,redis:RedisClient,db:Session) -> List:
     #Accedeix a la base de dades i la col·lecció de mongoDB
