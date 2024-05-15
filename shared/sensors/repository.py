@@ -175,7 +175,7 @@ def get_sensors_near(mongodb: MongoDBClient, latitude: float, longitude: float,r
     
     #Recuperem els documents que compleixin la condició 
     sensors_near = list(mongodb.getDocuments(query))
-    
+    print(sensors_near)
     #Per cada document obtigut actualitzem les seves dades
     for sensor in sensors_near:
         #Obtenim les dades de postgreSQL
@@ -273,4 +273,5 @@ def get_low_battery_sensors(mongodb: MongoDBClient, cassandra: CassandraClient):
         #Hi afegim el nivell de bateria
         sensor.update({"battery_level": round(row.battery_level, 2)})
         sensors.append(sensor)
+    print(sensors)
     return {'sensors': sensors}
