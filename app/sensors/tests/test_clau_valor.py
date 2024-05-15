@@ -40,7 +40,8 @@ def clear_dbs():
 @pytest.fixture(scope="session", autouse=True)   
 def create_sensor():
      """A sensor can be properly created"""
-     response = client.post("/sensors", json={"name": "Sensor 1", "latitude": 1.0, "longitude": 1.0})
+     response = client.post("/sensors", json={"name": "Sensor 1", "latitude": 1.0, "longitude": 1.0, "type": "Temperatura", "mac_address": "00:00:00:00:00:00", "manufacturer": "Dummy", "model":"Dummy Temp", "serie_number": "0000 0000 0000 0000", "firmware_version": "1.0", "description": "Sensor de temperatura model Dummy Temp del fabricant Dummy"})
+
      assert response.status_code == 200
      json = response.json()
      assert json["id"] == 1
