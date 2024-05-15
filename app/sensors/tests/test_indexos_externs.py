@@ -25,7 +25,9 @@ def clear_dbs():
      es = ElasticsearchClient(host="elasticsearch")
      es.clearIndex("sensors")  
      ts = Timescale()
-     ts.execute("DROP TABLE IF EXISTS sensor_data")
+     ts.execute("DELETE FROM sensor_data")
+     #TODO execute TS migrations
+     ts.execute("commit")
      ts.close()
      while True:
         try:
