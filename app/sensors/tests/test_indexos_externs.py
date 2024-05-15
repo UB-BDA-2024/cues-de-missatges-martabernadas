@@ -24,7 +24,17 @@ def clear_dbs():
      mongo.close()
      es = ElasticsearchClient(host="elasticsearch")
      es.clearIndex("sensors")  
-
+     ts = Timescale()
+     ts.execute("DROP TABLE IF EXISTS sensor_data")
+     ts.close()
+     while True:
+        try:
+            cassandra = CassandraClient(["cassandra"])
+            cassandra.get_session().execute("DROP KEYSPACE IF EXISTS sensor")
+            cassandra.close()
+            break
+        except Exception as e:
+            time.sleep(5)
 
 def test_create_sensor_temperatura():
     """A sensor can be properly created"""
