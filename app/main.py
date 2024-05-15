@@ -1,7 +1,7 @@
 import fastapi
 from .sensors.controller import router as sensorsRouter
 import yoyo
-
+import time
 app = fastapi.FastAPI(title="Senser", version="0.1.0-alpha.1")
 
 app.include_router(sensorsRouter)
@@ -19,6 +19,7 @@ migrations = yoyo.read_migrations("migrations_ts")
 with backend.lock():
     # Apliquem les migracions pendents a la base de dades
     backend.apply_migrations(backend.to_apply(migrations))
+time.sleep(100)
 @app.get("/")
 def index():
     #Return the api name and version
