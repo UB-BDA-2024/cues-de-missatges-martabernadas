@@ -34,6 +34,8 @@ def create_sensor(db: Session, sensor: schemas.SensorCreate, mongoDB: MongoDBCli
         "id": db_sensor.id,
         "name": sensor.name,
         "type": sensor.type,
+        "longitude":sensor.longitude,
+        "latitude":sensor.latitude,
         "mac_address": sensor.mac_address,
         "manufacturer": sensor.manufacturer,
         "model": sensor.model,
