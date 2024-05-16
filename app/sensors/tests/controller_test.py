@@ -329,6 +329,23 @@ def test_get_near():
     assert json[1]["velocity"] == 46.0
     assert json[1]["battery_level"] == 1.9
     assert json[1]["last_seen"] == "2020-01-01T00:00:01.000Z"
+
+def test_redis_connection():
+    redis_client = RedisClient(host="redis")
+    assert redis_client.ping()
+    redis_client.close()
+
+def test_get_sensor_data():
+    """We can get a sensor by its id"""
+    response = client.get("/sensors/1/data")
+    assert response.status_code == 200
+    json = response.json()
+    assert json["id"] == 1
+    assert json["name"] == "Sensor Temperatura 1"
+    assert json["temperature"] == 2.0
+    assert json["humidity"] == 2.0
+    assert json["battery_level"] == 1.9
+    assert json["last_seen"] == "2020-01-01T00:00:01.000Z"
     
 def test_delete_sensor_1():
     response = client.delete("/sensors/1")
