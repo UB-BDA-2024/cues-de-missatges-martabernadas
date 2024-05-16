@@ -177,20 +177,19 @@ def get_sensors_near(mongodb: MongoDBClient, latitude: float, longitude: float,r
     
     #Recuperem els documents que compleixin la condició 
     sensors_near = list(mongodb.getDocuments(query))
-    print(sensors_near)
     #Per cada document obtigut actualitzem les seves dades
     for sensor in sensors_near:
         #Obtenim les dades de postgreSQL
         db_sensor=get_sensor(db=db,sensor_id=sensor['id'])
         #Obtenim les dades de redis
-        db_data=get_data(redis=redis,sensor_id=db_sensor.id,sensor_name=db_sensor.name)
+        db_data=get_data(redis=redis,sensor_id=db_sensor.id,sensor_name=db_sensor.name,to_date=None,from_date=None,bucket=None)
         #Les afegim al document
         sensor['velocity']=db_data['velocity']
         sensor['temperature']=db_data['temperature']
         sensor['humidity']=db_data['humidity']
         sensor['battery_level']=db_data['battery_level']
         sensor['last_seen']=db_data['last_seen']
-    
+    print(sensors_near)
     return sensors_near
 def get_sensor_mongoDB(mongoDB:MongoDBClient,sensor_id:int)->schemas.Sensor:
     #Accedeix a la base de dades i la col·lecció de mongoDB
