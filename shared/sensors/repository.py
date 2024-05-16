@@ -182,7 +182,7 @@ def get_sensors_near(mongodb: MongoDBClient, latitude: float, longitude: float,r
         #Obtenim les dades de postgreSQL
         db_sensor=get_sensor(db=db,sensor_id=sensor['id'])
         #Obtenim les dades de redis
-        db_data=get_data(redis=redis,sensor_id=db_sensor.id,sensor_name=db_sensor.name,to_date=None,from_date=None,bucket=None)
+        db_data=get_data(redis=redis,sensor_id=db_sensor.id,sensor_name=db_sensor.name,to_date=None,from_date=None,bucket=None,timescale=None)
         #Les afegim al document
         sensor['velocity']=db_data['velocity']
         sensor['temperature']=db_data['temperature']
